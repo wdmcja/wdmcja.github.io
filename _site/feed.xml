@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>小段博客</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <description>这是我记录生活与学习过程的地方。
 </description>
     <link>http://wdmcja.github.io/wdmcja/#/</link>
     <atom:link href="http://wdmcja.github.io/wdmcja/#/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 31 Jul 2015 00:11:21 +0800</pubDate>
-    <lastBuildDate>Fri, 31 Jul 2015 00:11:21 +0800</lastBuildDate>
+    <pubDate>Fri, 31 Jul 2015 00:36:53 +0800</pubDate>
+    <lastBuildDate>Fri, 31 Jul 2015 00:36:53 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
