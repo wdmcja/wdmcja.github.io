@@ -3,7 +3,7 @@
     src         : url("/fonts/yaheiconsolashybrid.ttf");
 }*/
 body {
-    font-family : 微软雅黑,黑体;
+    font-family : yaheiconsolashybrid,微软雅黑,黑体;
     font-size  : 16px;
     padding-top: 60px;
     padding-bottom: 60px;
