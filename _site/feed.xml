@@ -8,13 +8,15 @@
 		
 			<item>
 				<title>wordpress 转到 jekyll!</title>
-				<description>&lt;p&gt;现在开始从wordpress转到jekyll里来了。jekyll的特性可以更好的来关注到博客本身上来，我也会一点点的写些自己的东西
-  我关注的可能多是自己遇到的事，gentoo，linux相关的内容，也可能是自己开发过程中遇到的一些问题与解决方法。
-  当然，有些公司相关的事情会略去。我本人也不怎么关心公司本身吧。&lt;/p&gt;
+				<description>&lt;p&gt;&amp;emsp;现在开始从wordpress转到jekyll里来了。jekyll的特性可以更好的来关注到博客本身上来，我也会一点点的写些自己的东西。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;我关注的可能多是自己遇到的事，gentoo，linux相关的内容，也可能是自己开发过程中遇到的一些问题与解决方法。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;当然，有些公司相关的事情会略去。我本人也不怎么关心公司本身吧。&lt;/p&gt;
 </description>
 				<pubDate>Sun, 02 Aug 2015 05:48:10 +0800</pubDate>
-				<link>http://wdmcja.github.io//2015/08/workpress</link>
-				<guid isPermaLink="true">http://wdmcja.github.io//2015/08/workpress</guid>
+				<link>http://wdmcja.github.io//workpress</link>
+				<guid isPermaLink="true">http://wdmcja.github.io//workpress</guid>
 			</item>
 		
 			<item>
@@ -34,8 +36,8 @@
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
 </description>
 				<pubDate>Fri, 31 Jul 2015 07:58:36 +0800</pubDate>
-				<link>http://wdmcja.github.io//2015/07/welcome-to-jekyll</link>
-				<guid isPermaLink="true">http://wdmcja.github.io//2015/07/welcome-to-jekyll</guid>
+				<link>http://wdmcja.github.io//welcome-to-jekyll</link>
+				<guid isPermaLink="true">http://wdmcja.github.io//welcome-to-jekyll</guid>
 			</item>
 		
 	</channel>
