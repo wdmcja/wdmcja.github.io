@@ -1,12 +1,38 @@
-# Site settings
-title: 小段博客
-email: wdmcja@126.com
-description: > # this means to ignore newlines until "baseurl:"
-  这是我记录生活与学习过程的地方。
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://wdmcja.github.io/wdmcja/#" # the base hostname & protocol for your site
-#twitter_username: jekyllrb
-#github_username:  jekyll
+# Jekyll configuration
 
+name: 小段博客
+description: 欢迎来到小段博客
 # Build settings
 markdown: kramdown
+
+# url is currently only used only for the RSS feed in feed.xml
+url: "http://wdmcja.github.io/"
+
+# baseurl will often be '', but for a project page on gh-pages, it needs to
+# be the project name.
+# *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
+#     run it like so: jekyll serve --baseurl=''
+baseurl: ""
+
+# This can be '' to hide the Github nav button
+#github: 'scotte/jekyll-clean'
+github: ''
+
+# Set this to your UA-# value, or '' to disable the block completely
+gaaccount: ''
+
+# Set this to your disqus shortname to enable comments. Note that the 'comments'
+# setting below must also be true. Individual posts can override 'comments' to
+# disable on a post-by-post basis
+disqus: ''
+comments: true
+
+permalink: /:year/:month/:title
+paginate: 3
+
+highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+exclude: ['README.md', 'LICENSE']
