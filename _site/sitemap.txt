@@ -1,0 +1,15 @@
+
+http://wdmcja.github.io//404.html
+http://wdmcja.github.io//about.html
+http://wdmcja.github.io//archive.html
+http://wdmcja.github.io//atom.xml
+http://wdmcja.github.io//categories.html
+http://wdmcja.github.io//index.html
+http://wdmcja.github.io//messages.html
+http://wdmcja.github.io//pages.html
+http://wdmcja.github.io//rss.xml
+http://wdmcja.github.io//sitemap.txt
+http://wdmcja.github.io//tags.html
+
+http://wdmcja.github.io//workpress.html
+http://wdmcja.github.io//jekyll/update/welcome-to-jekyll.html
