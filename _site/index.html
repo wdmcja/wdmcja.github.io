@@ -1,138 +1,417 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 7 ]>    <html lang="zh-CN" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="zh-CN" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="zh-CN"> <!--<![endif]-->
 
 <head>
-    <meta charset="UTF-8">
-    <title>小段博客</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/theme.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <!--[if IE 8 ]><meta http-equiv="X-UA-Compatible" content="IE=7"><![endif]-->
+
+  
+  <title>小段博客</title>
+  
+  <meta name="description" content="记录生活点滴与学习过程">
+  <meta name="author" content="wdmcja">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- Feed -->
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+  <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/atom.xml">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/themes/twitter/css/style.css">
+  <link rel="stylesheet" href="/assets/themes/twitter/css/font-awesome.min.css">
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="/assets/themes/twitter/js/jquery-1.10.1.min.js"></script>
+
 </head>
 
 <body>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">小段博客</a>
-              </div>
-              <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">主页</a></li>
-                    <li class="active visible-xs-block"><a href="/links.html">Links</a></li>
-                    <li class="active"><a href="/archive.html">时间段</a></li>
-                    <li class="active"><a href="/about.html">关于</a></li>
-                    <li class="active"><a href="/feed.xml">RSS</a></li>
-                    
-                </ul>
-              </div>
-        </div>
-    </div>
-</div>
+  <div id="wrap">
+    <header id="top">
+      <!-- Home Link -->
+      <a id="logo" href="/" title="回到首页">
+        <img src="/assets/themes/twitter/img/logo.png" alt="小段博客">
+      </a>
+      <!-- Navigation Bar -->
+      <nav id="navbar">
+        <ul>
+          <li class="active">
+            <a href="/" title="首页">首页</a>
+          </li>
+          <li>
+            <a href="/categories.html" title="分类">分类</a>
+          </li>
+          <li>
+            <a href="/tags.html" title="标签">标签</a>
+          </li>
+          <li>
+            <a href="/messages.html" title="留言板">留言板</a>
+          </li>
+          <li id="about-link" >
+            <a href="/about.html" title="关于我">关于我</a>
+          </li>
+          <li id="rss-link">
+            <a href="/rss.xml" title="订阅 RSS"><i class="icon-large icon-fixed-width icon-rss"></i></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
+    <section id="main">
 
-<div class="container container-left">
-    <div class="row">
-        <div class="col-md-3 hidden-xs">
-            <div class="sidebar well">
-    <h1>最近发布</h1>
-    <ul>
-        
-          <li><a href="/2015/08/workpress">wordpress 转到 jekyll!</a></li>
-        
-          <li><a href="/2015/07/welcome-to-jekyll">Welcome to Jekyll!</a></li>
-        
-    </ul>
-</div>
+      <!-- Sidebar -->
+      <aside id="sidebar">
+        <section id="search-box">
+          <form id="search-form">
+  <input id="query" type="text" placeholder="正则搜索"></input>
+  <button type="submit"><i class="icon-search"></i></button>
+</form>
+<script type="text/javascript">
+$(document).ready(function() {
+  var entries = null;
 
-<div class="sidebar well">
-欢迎来到小段博客
-</div>
+  function htmlEscape(s) {
+    return String(s).replace(/[&<>"'\/]/g, function(s) {
+      var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+      };
+      return entityMap[s];
+    });
+  }
 
-<div class="sidebar well">
-<h1>链接(当前是空的)</h1>
+  function xmlDateToJavascriptDate(xmlDate) {
+    var re = /^([0-9]{4,})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\.[0-9]+)?(Z|([+-])([0-9]{2}):([0-9]{2}))?$/;
+    var match = xmlDate.match(re);
+    if (!match)
+      return null;
+
+    var all = match[0];
+    var year = match[1];  var month = match[2];  var day = match[3];
+    var hour = match[4];  var minute = match[5]; var second = match[6];
+    var milli = match[7]; 
+    var z_or_offset = match[8];  var offset_sign = match[9]; 
+    var offset_hour = match[10]; var offset_minute = match[11];
+
+    if (offset_sign) {
+      var direction = (offset_sign == "+" ? 1 : -1);
+      hour =   parseInt(hour)   + parseInt(offset_hour)   * direction;
+      minute = parseInt(minute) + parseInt(offset_minute) * direction;
+    }
+    month = parseInt(month) - 1;
+    var utcDate = Date.UTC(year, month, day, hour, minute, second, (milli || 0));
+    return new Date(utcDate);
+  }
+
+  function formatDate(date) {
+    var monthNames = [ "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December" ];
+    return date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear();
+  }
+
+  function findEntries(q) {
+    var matches = [];
+    var rq = new RegExp(q, 'im');
+    var rl = /\/([^\/]+)\.html$/;
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var title = $(entry.getElementsByTagName('title')[0]).text();
+      var link = $(entry.getElementsByTagName('link')[0]).attr('href');
+      var title_en = rl.exec(link)[1].replace(/-/g, ' ');
+      var content = $(entry.getElementsByTagName('content')[0]).text();          
+      if (rq.test(title) || rq.test(title_en) || rq.test(content)) {
+        var updated = formatDate(xmlDateToJavascriptDate($(entry.getElementsByTagName('updated')[0]).text()));
+        matches.push({'title': title, 'link': link, 'date': updated, 'content': content});
+      }
+    }
+    var html = '';
+    for (var i = 0; i < matches.length; i++) {
+      var match = matches[i]; 
+      html += '<article class="nested">';
+      html += '<header><h2><a href="' + match.link + '">' + htmlEscape(match.title) + '</a></h2></header>';
+      html += '<section><p>' + htmlEscape(match.content) + '</p></section>';
+      html += '<footer><p>更新日期：' + match.date + '</p></footer>';
+      html += '</article>';
+    }
+    $('#main-content').html(html);
+    $('#loader').hide();
+    $('#main-content').show();
+  }
+
+  $('#search-form').submit(function() {
+    var query = $('#query').val();
+    $('#query').blur().attr('disabled', true);
+    $('#main-content').hide();
+    $('#loader').show();
+    if (entries == null) {
+      $.ajax({url: '/atom.xml?r=' + (Math.random() * 99999999999), dataType: 'xml', success: function(data) {
+        entries = data.getElementsByTagName('entry');
+        findEntries(query);
+      }});
+    } else {
+      findEntries(query);
+    }
+    $('#query').blur().attr('disabled', false);
+    return false;
+  });
+
+});
+</script>
+
+        </section>
+        <section class="active">
+          <a href="/archive.html" title="查看所有文章"><i class="icon-fixed-width icon-file-text"></i> 最近发表</a>
+<span title="文章总数">2</span>
 <ul>
-  <li><a href="#">One</a></li>
+
+  <li><a href="/workpress.html" title="查看《wordpress 转到 jekyll!》">wordpress 转到 jekyll!</a></li>
+
+  <li><a href="/jekyll/update/welcome-to-jekyll.html" title="查看《Welcome to Jekyll!》">Welcome to Jekyll!</a></li>
+
 </ul>
 
+        </section>
+        <section>
+          <a href="/categories.html" title="查看所有分类"><i class="icon-fixed-width icon-folder-open"></i> 文章分类</a>
+<span title="分类总数">2</span>
+<ul>
+
+  <li><a href="/categories.html#jekyll-ref">jekyll (1)</a></li>
+
+  <li><a href="/categories.html#update-ref">update (1)</a></li>
+
+</ul>
+
+        </section>
+        <section>
+          <a href="/tags.html" title="查看所有标签"><i class="icon-fixed-width icon-tags"></i> 标签云</a>
+<span title="标签总数">0</span>
+<div id="tag-cloud">
+
+
 </div>
 
-        </div>
-        <div class="col-md-9">
-            
-<div class="article">
-    <div class="well">
-        <h1><a href="/2015/08/workpress">08月 02日, 2015年 - wordpress 转到 jekyll!</a></h1>
-        
-        <div class="content">
-            <p>&emsp;现在开始从wordpress转到jekyll里来了。jekyll的特性可以更好的来关注到博客本身上来，我也会一点点的写些自己的东西。</p>
+        </section>
+        <div id="fixed-container">
+  <section>
+    <a href="#"><i class="icon-fixed-width icon-code"></i> 代码仓库</a>
+<ul>
+  <li><a href="http://github.com/liberize/rhythmbox-doubanfm-plugin" target="_blank">Rhythmbox 豆瓣 FM 插件</a></li>
+  <li><a href="http://github.com/liberize/rhythmbox-osdlyrics-plugin" target="_blank">Rhythmbox 歌词插件</a></li>
+</ul>
 
-<p>&emsp;我关注的可能多是自己遇到的事，gentoo，linux相关的内容，也可能是自己开发过程中遇到的一些问题与解决方法。</p>
-
-<p>&emsp;当然，有些公司相关的事情会略去。我本人也不怎么关心公司本身吧。</p>
-
-        </div>
-    </div>
+  </section>
+  <section>
+    <a href="#"><i class="icon-fixed-width icon-heart"></i> 与我联系</a>
+<div id="contacts-list">
+  <a href="mailto:wdmcja@126.com" target="_blank" title="126mail">
+    <i class="icon-large icon-fixed-width icon-envelope"></i>
+  </a>
+  <a href="http://weibo.com/u/1743636554" target="_blank" title="新浪微博">
+    <i class="icon-large icon-fixed-width icon-weibo"></i>
+  </a>
 </div>
 
-<div class="article">
-    <div class="well">
-        <h1><a href="/2015/07/welcome-to-jekyll">07月 31日, 2015年 - Welcome to Jekyll!</a></h1>
-        
-        <div class="content">
-            <p>You’ll find this post in your <code>_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code>jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+  </section>
+  <section>
+    <a href="#"><i class="icon-fixed-width icon-link"></i> 友情链接</a>
+<ul>
+  <li><a href="http://liberize.me/" target="_blank">liberize博客</a></li>
+  <li><a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers" target="_blank">Liquid 模板引擎</a></li>
+  <li><a href="http://jekyllrb.com/" target="_blank">Jekyll 静态博客生成器</a></li>
+</ul>
 
-<p>To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention <code>YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
-
-<p>Jekyll also offers powerful support for code snippets:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">&quot;Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">&#39;Tom&#39;</span><span class="p">)</span>
-<span class="c1">#=&gt; prints &#39;Hi, Tom&#39; to STDOUT.</span></code></pre></div>
-
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
-
-        </div>
-    </div>
+  </section>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+  var position = $('#fixed-container').offset();
+  $(window).scroll(function() {
+    if($(window).scrollTop() > position.top) {
+      $('#fixed-container').css('position','fixed').css('top','0');
+    } else {
+      $('#fixed-container').css('position','static');
+    }
+  });
+  if(matchMedia) {
+    var mq = matchMedia('(max-width: 999px)');
+    mq.addListener(function(mql) {
+      if (!mql.matches) {
+        position = $('#fixed-container').offset();
+      }
+    });
+  }
+});
+</script>
+
+      </aside>
+
+      <!-- Main Content -->
+      <div id="main-inner">
+        <div id="loader"><img src="/assets/themes/twitter/img/loading.gif" alt="请稍侯"></div>
+        <div id="main-content">
+          
 
 
-<div class="pagination">
+<!-- Recent Posts  -->
+<section>
   
-  <span class="page_number ">Page: 1 of 1</span>
+  <article class="nested">
+
+    <header>
+      <h2><a href="/workpress.html" title="查看《wordpress 转到 jekyll!》">wordpress 转到 jekyll!</a></h2>
+    </header>
+
+    <section>
+      <p>
+        &emsp;现在开始从wordpress转到jekyll里来了。jekyll的特性可以更好的来关注到博客本身上来，我也会一点点的写些自己的东西。
+
+&emsp;我关注的可能多是自己遇到的事，gentoo，linux相关的内容，也可能是自己开发过程中遇到的一些问题与解决方法。
+
+&emsp;当然，有些公司相关的事情会略去。我本人也不怎么关心公司本身吧。
+
+      </p>
+      <a class="button-link" href="/workpress.html" title="查看全文">read more</a>
+    </section>
+
+    <footer>
+      <p>
+        发表日期：<a href="/archive.html#August-2015" title="查看此月所有文章">08月 02日 2015年</a>，
+        作者：<a href="mailto:wdmcja@126.com" title="向作者发送邮件">wdmcja</a>，
+        类别：<a href="/categories.html#-ref" title="查看此类别下的所有文章"></a>，
+        评论：<a href="/workpress.html#ds-thread" title="查看此文章的评论"><span class="ds-thread-count" data-thread-key="wordpress 转到 jekyll!" data-count-type="comments"></span></a>
+      </p>
+    </footer>
+
+  </article>
   
-</div>
+  <article class="nested">
+
+    <header>
+      <h2><a href="/jekyll/update/welcome-to-jekyll.html" title="查看《Welcome to Jekyll!》">Welcome to Jekyll!</a></h2>
+    </header>
+
+    <section>
+      <p>
+        You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.
+
+To a...
+      </p>
+      <a class="button-link" href="/jekyll/update/welcome-to-jekyll.html" title="查看全文">read more</a>
+    </section>
+
+    <footer>
+      <p>
+        发表日期：<a href="/archive.html#July-2015" title="查看此月所有文章">07月 31日 2015年</a>，
+        作者：<a href="mailto:wdmcja@126.com" title="向作者发送邮件">wdmcja</a>，
+        类别：<a href="/categories.html#-ref" title="查看此类别下的所有文章"></a>，
+        评论：<a href="/jekyll/update/welcome-to-jekyll.html#ds-thread" title="查看此文章的评论"><span class="ds-thread-count" data-thread-key="Welcome to Jekyll!" data-count-type="comments"></span></a>
+      </p>
+    </footer>
+
+  </article>
+  
+
+  
+    
+    
+<script type="text/javascript">
+var duoshuoQuery = {short_name: 'wdmcja'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+  
+
+</section>
+
+<!-- Pagination Links -->
+<section class="pagination pagination-centered">
+  <ul>
+    <!-- First Page -->
+    
+    <li class="disabled"><a href="#">&laquo;&laquo;</a></li>
+    
+
+    <!-- Previous Page -->
+    
+    <li class="disabled"><a href="#">&laquo;</a></li>
+    
+
+    <!-- Current Page -->
+    <li class="active">
+      <span class="page_number ">第 1/1 页</span>
+    </li>
+
+    <!-- Next Page -->
+    
+    <li class="disabled"><a href="#">&raquo;</a></li>
+    
+
+    <!-- Last Page -->
+    
+    <li class="disabled"><a href="#">&raquo;&raquo;</a></li>
+    
+  </ul>
+</section>
 
         </div>
-    </div>
+      </div>
+
+      <div id="back-top">
+  <a href="#top" title="回到顶部"></a>
 </div>
+<script type="text/javascript">
+$("#back-top").hide();
+$(document).ready(function () {
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 100) {
+      $('#back-top').fadeIn();
+    } else {
+      $('#back-top').fadeOut();
+    }
+  });
+  $('#back-top a').click(function () {
+    $('body,html').animate({
+      scrollTop: 0
+    }, 800);
+    return false;
+  });
+});
+</script>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12 footer navbar-inverse navbar-fixed-bottom">
-            <p class="copyright">&copy;2015 小段博客. Powered by <a href="http://jekyllrb.com">Jekyll</a>, theme by <a href="https://github.com/scotte/jekyll-clean">Scott Emmons</a>
-            under
-            <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution</a></p>
-        </div>
-    </div>
-</div>
 
+    </section>
 
+    <footer id="bottom">
+      <p align="center">&copy; 2015 wdmcja
+        with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+        and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+      </p>
+    </footer>
+  </div>
 
+  <script type="text/javascript">$('article.post a').attr('target', '_blank');</script>
+  
 
-
-
+  
 </body>
 </html>
 
