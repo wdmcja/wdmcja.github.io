@@ -1,4 +1,6 @@
 /*  HTML5 Boilerplate  */
+/* 加入首先缩进add by dxm 2015-08-02 22:38 */
+p   {   text-indent:2em   }   
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
