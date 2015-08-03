@@ -12,22 +12,22 @@ description: "记录生活点滴与学习过程"
   <article class="nested">
 
     <header>
-      <h2><a href="{{ post.url }}" title="查看《{{ post.title }}》">{{ post.title }}</a></h2>
+        <h2><a href="{{site.baseurl}}{{ post.url }}" title="查看《{{ post.title }}》">{{ post.title }}</a></h2>
     </header>
 
     <section>
       <p>
         {{ post.content | strip_html | truncate:300 }}
       </p>
-      <a class="button-link" href="{{ post.url }}" title="查看全文">read more</a>
+      <a class="button-link" href="{{site.baseurl}}{{ post.url }}" title="查看全文">read more</a>
     </section>
 
     <footer>
       <p>
         发表日期：<a href="{{ site.JB.archive_path }}#{{ post.date | date: '%B-%Y' }}" title="查看此月所有文章">{{ post.date | date: "%m月 %d日 %Y年" }}</a>，
         作者：<a href="mailto:{{ site.author.email }}" title="向作者发送邮件">{{ site.author.name }}</a>，
-        类别：<a href="{{ site.JB.categories_path }}#{{ post.category }}-ref" title="查看此类别下的所有文章">{{ post.category }}</a>{% if site.JB.comments.provider == 'duoshuo' %}，
-        评论：<a href="{{ post.url }}#ds-thread" title="查看此文章的评论"><span class="ds-thread-count" data-thread-key="{{ post.title }}" data-count-type="comments"></span></a>{% endif %}
+        类别：<a href="{{ site.JB.categories_path }}#{{ post.category }}-ref" title="查看此类别下的所有文章">{{ post.categories }}</a>{% if site.JB.comments.provider == 'duoshuo' %}，
+        评论：<a href="{{site.baseurl}}{{ post.url }}#ds-thread" title="查看此文章的评论"><span class="ds-thread-count" data-thread-key="{{ post.title }}" data-count-type="comments"></span></a>{% endif %}
       </p>
     </footer>
 
@@ -46,7 +46,7 @@ description: "记录生活点滴与学习过程"
   <ul>
     <!-- First Page -->
     {% if paginator.previous_page %}
-    <li><a href="/index.html">&laquo;&laquo;</a></li>
+    <li><a href="/site.baseurl/index.html">&laquo;&laquo;</a></li>
     {% else %}
     <li class="disabled"><a href="#">&laquo;&laquo;</a></li>
     {% endif %}
@@ -55,9 +55,9 @@ description: "记录生活点滴与学习过程"
     {% if paginator.previous_page %}
     <li>
       {% if paginator.previous_page == 1 %}
-      <a href="/index.html">&laquo;</a>
+      <a href="/site.baseurl/index.html">&laquo;</a>
       {% else %}
-      <a href="/page{{ paginator.previous_page }}">&laquo;</a>
+      <a href="/site.baseurl/page{{ paginator.previous_page }}">&laquo;</a>
       {% endif %}
     </li>
     {% else %}
@@ -71,14 +71,14 @@ description: "记录生活点滴与学习过程"
 
     <!-- Next Page -->
     {% if paginator.next_page %}
-    <li><a href="/page{{paginator.next_page}}">&raquo;</a></li>
+    <li><a href="/site.baseurl/page{{paginator.next_page}}">&raquo;</a></li>
     {% else %}
     <li class="disabled"><a href="#">&raquo;</a></li>
     {% endif %}
 
     <!-- Last Page -->
     {% if paginator.next_page %}
-    <li><a href="/page{{ paginator.total_pages }}">&raquo;&raquo;</a></li>
+    <li><a href="/site.baseurl/page{{ paginator.total_pages }}">&raquo;&raquo;</a></li>
     {% else %}
     <li class="disabled"><a href="#">&raquo;&raquo;</a></li>
     {% endif %}

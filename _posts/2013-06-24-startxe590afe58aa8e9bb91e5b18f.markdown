@@ -1,0 +1,41 @@
+---
+author: wdmcja
+comments: true
+date: 2013-06-24 01:25:57+00:00
+layout: post
+slug: startx%e5%90%af%e5%8a%a8%e9%bb%91%e5%b1%8f
+title: startx启动黑屏
+wordpress_id: 51
+categories:
+- linux
+tags:
+- linux
+- xorg
+- 启动
+---
+
+  一般在装完gentoo等linux后，如果需要桌面管理，就要开始安装xorg-server(或是xorg-x11),安装一般问题都不大，而安装完后，启动不了桌面系统才是问题。针对n卡而言，相对要简单一点。如无法启动，需先确定几点：
+
+{% highlight ruby %}
+1，gentoo 中make.conf 中是否有对VIDEO_CARDS定义，是否包含了自己机子上的显卡，如：nvidia,mesa(通用)，vesa,vga,vmware,等。
+2，在/etc/X11/xorg.conf文件存在，且对显卡等其他定义正确。
+{% endhighlight %}
+
+  在安装完xorg-x11后，可以先运行X --configure 进行定义配置，再X -config config路径（也可以用startx来启动，会用/etc/X11/xorg.conf 这个位置的配置），可以先测试配置是否正确。
+
+  如果你是N卡，在安装了nvidia-drivers后，会有nvidia-xconfig,运行下，可以生成一个默认的配置，一般都可以用，在基础上改下即可。
+
+  如果出现问题，可以ctrl+alt+backspace来终止，如果无效，可以用ctrl+alt+F1来强行回去命令符模式下再killall X ,可以关掉startx.
+
+  在启动startx后，屏幕会短暂的闪一下，就应该进行xorg默认安装的twm的桌面管理，如果你成功看到这个“丑丑”的界面，那么，恭喜你，你的xorg已经安装成功了。
+
+  如果没有成功，首先确认是否安装了twm与xterm，默认启动twm。很多人也因为没有安装而造成了开机黑屏的。再还是不行的话，需要看下配置文件是否正确，这里可以主要看下xorg的报错信息，一般这类问题都好解决，网上也有很多例子。
+
+  如果startx上没有什么报错信息，那很可能就是你的显卡驱动出现了问题，可以试下重新安装。
+
+  如果你还装了gdm，也可以不启动startx，而先启动gdm来测试，如果可以正常显示，说明你的配置没有问题，但这种情况下，你进行桌面系统，还是黑屏的话，你可以重点看下显卡驱动这块的问题。
+
+  gdm时还不会运行startx的启动角本，但会用到其配置文件，如果你能启动到gdm，那么已经说明配置没有问题，你可以看下X启动时所要运行的角本出现了什么问题，X启动角本为/etc/X11/xinit/xinitrc.d里运行，尤其看下显卡安装时，自动添加的一个角本，像我遇到过一个情况，就是/opt/bin/nvidia-settings --load-config-only，这行指令卡死，而造成gdm可以正常启动，而进行系统黑屏，而gnome2的安全模式（不启动自定义角本模式）可以正常进入桌面。
+
+  如果重新安装xorg，需重新安装一下nvidia-drivers,xf86-input-keyboard,xf86-input-mouse,xf86-input-evdev,不然可能进入桌面，键盘或是鼠标不能用。
+     

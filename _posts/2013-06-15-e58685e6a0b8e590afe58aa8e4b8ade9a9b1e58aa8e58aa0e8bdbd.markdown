@@ -1,0 +1,95 @@
+---
+author: wdmcja
+comments: true
+date: 2013-06-15 07:38:13+00:00
+layout: post
+slug: '%e5%86%85%e6%a0%b8%e5%90%af%e5%8a%a8%e4%b8%ad%e9%a9%b1%e5%8a%a8%e5%8a%a0%e8%bd%bd'
+title: 内核启动中驱动加载顺序
+wordpress_id: 23
+categories:
+- linux
+tags:
+- linux
+- rdk4.0
+- 内核
+- 驱动
+---
+
+在移植rdk4.0时遇到了spi寄存器无法读取的调试过程
+ 在内核中打印发现，按内核启动顺序打印，在spi最开始时可以访问寄存器，而在后来马上又无法访问寄存器，不知是在哪个地方做了什么动作使得无法访问，内存打印如下：
+
+
+{% highlight ruby %}
+[1.601035] TCP cubic registered
+[1.604499] NET: Registered protocol family 17
+[1.609029] I am in the net/packet/af_packet.c packet_init 2732
+[1.615129]  SPIGCR0   : 0x00000001 
+[1.618748]  SPIGCR1   : 0x00000103 
+[1.622331]  SPIFLG    : 0x01000000 
+[1.626000]  SPIPC0    : 0x01010e01 
+[1.629588]  SPIDELAY  : 0x00000000 
+[1.633243]  SPIDEF    : 0x00000001 
+[1.636849]  PINMUX0    : 0x00000000 
+[1.640519]  PINMUX1    : 0x0043000c 
+[1.644251]  PINMUX2    : 0x00001980 
+[1.647925]  PINMUX3    : 0xe15affff 
+[1.651623]  PINMUX4    : 0x30c015e1 
+[1.660065] I am in the drivers/base/platform.c platform_driver_register 449
+[1.660093] The platform name = davinci_emac
+[1.671654] I am in the drivers/base/platform.c platform_driver_register 462
+[1.678886]  SPIGCR0   : 0x00000000 
+[1.682583]  SPIGCR1   : 0x00000000 
+[1.686173]  SPIFLG    : 0x00000000 
+[1.689753]  SPIPC0    : 0x00000000 
+[1.693410]  SPIDELAY  : 0x00000000 
+[1.696997]  SPIDEF    : 0x00000000 
+[1.700576]  PINMUX0    : 0x00000000 
+[1.704311]  PINMUX1    : 0x0043000c 
+[1.707985]  PINMUX2    : 0x00001980 
+[1.711651]  PINMUX3    : 0xe15affff 
+[1.715386]  PINMUX4    : 0x30c015e1 
+[1.723226] net eth0: attached PHY driver [Generic PHY] (mii_bus:phy_addr=0:01, id=221619)
+[1.743842] IP-Config: Complete:
+{% endhighlight %}
+
+
+ 在调试过程中，在内核代码：./init/main.c文件中发现内核启动程序，kernel_init,在其中的do_basic_setup函数主要做的是驱动等设备初始化工作，
+
+
+{% highlight ruby %}
+    static void __init do_basic_setup(void)
+    {
+	    cpuset_init_smp();
+	    usermodehelper_init();
+	    init_tmpfs();
+	    driver_init();
+	    init_irq_proc();
+	    do_ctors();
+	    do_initcalls();
+    }
+{% endhighlight %}
+
+ 
+ 其中driver_init是驱动初始化之前的动作，之前有段时间认为这个函数是驱动初始化工作，浪费了大量时间。
+ 在do_initcalls函数才是驱动函数运行函数，
+
+
+{% highlight ruby %}
+    static void __init do_initcalls(void)
+    {
+	    initcall_t *fn;
+
+	    for (fn = __early_initcall_end; fn < __initcall_end; fn++)
+            {
+                    printk("I am in the %s %s %d\nThe fn address = 0x%x\n",__FILE__,__FUNCTION__,__LINE__,fn);
+		    do_one_initcall(*fn);
+            }
+        
+
+	    /* Make sure there is no pending stuff from the initcall sequence */
+	    flush_scheduled_work();
+    }
+{% endhighlight %}
+
+ 其中,fn对应的值为函数在内存中的位置，可通过system.map来查找运行的哪个函数，最后定位是哪个函数出了问题
+ 有了上面的知识，后面就好做了，最终锁定是./arch/arm/mach-davinci/clock.c文件中的一个clk_disable_unused函数引起的，该问题也得到了大方面的前进

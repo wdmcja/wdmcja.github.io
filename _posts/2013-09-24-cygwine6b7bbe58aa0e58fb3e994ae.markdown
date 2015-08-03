@@ -1,0 +1,43 @@
+---
+author: wdmcja
+comments: true
+date: 2013-09-24 06:24:18+00:00
+layout: post
+slug: cygwin%e6%b7%bb%e5%8a%a0%e5%8f%b3%e9%94%ae
+title: cygwin添加右键
+wordpress_id: 108
+categories:
+- 计算机
+tags:
+- cygwin
+---
+
+
+将cygwin的cmd添加到windows下的右键上来,需对注册表做一定的更改
+
+
+
+
+	
+    1. 在HKEY_CLASSES_ROOT\Directory\shell 中右键点击shell->新建->项
+
+	
+    2. 添加一项,名字可以随意起,比如叫做GotoCygwin
+
+	
+    3. 在其下再新建一项,叫做command,表示要执行的命令,command下会有一个图标是ab字样的键值,名称是(默认),类型是REG_SZ,双击其会弹出一个”修改字符串”的窗口,修改数据数值为:E:\cygwin\bin\mintty.exe -e E:\cygwin\bin\bash -c "/bin/xhere /bin/bash.exe"
+
+
+
+这里要注意,由于需查找当前的路径,用到了chere的命令,所以在cygwin里要装有该指令,不然无法执行.
+
+
+
+
+
+
+
+
+
+
+

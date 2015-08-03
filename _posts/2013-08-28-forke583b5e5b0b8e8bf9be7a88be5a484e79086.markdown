@@ -1,0 +1,39 @@
+---
+author: wdmcja
+comments: true
+date: 2013-08-28 08:10:54+00:00
+layout: post
+slug: fork%e5%83%b5%e5%b0%b8%e8%bf%9b%e7%a8%8b%e5%a4%84%e7%90%86
+title: fork僵尸进程处理
+wordpress_id: 87
+categories:
+- linux
+tags:
+- fork
+- linux
+- 僵尸进程
+---
+
+  近来遇到了进程僵尸进程的问题,这里有两种处理办法,其中一种比较有趣,先看看第一种办法:
+ 
+
+{% highlight ruby %}
+      1,Linux中也可使用这个，在一个程序的开始调用这个函数
+　　     signal(SIGCHLD,SIG_IGN); //头文件:#include 
+{% endhighlight %}
+
+
+  还有一种方法就比较有趣了,就是fork两次,但是我使用的过程中也遇到了一些问题,但不妨碍其有趣性:
+
+
+{% highlight ruby %}
+ 2,其原理其实是建立子进程与孙进程,在子进程比孙进程先退出时,孙进程会被init处理,而init会处理僵尸进程.这里就涉及到,如果子进程比孙进程提前退出时,孙进程不是被父进程管理的,而是直接丢给了init.
+
+  这里需要注意的是,如果子进程比孙进程提前退出,但是对父进程和子进程而言,子进程还是比父进程先退出了,而遇到父进程需一直进行的情况下,一样的会有僵尸进程的出现.
+{% endhighlight %}
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+---
+author: wdmcja
+comments: true
+date: 2014-03-20 05:47:53+00:00
+layout: post
+slug: linux%e6%9b%b4%e6%94%b9%e6%8c%82%e8%bd%bd%e7%9b%98%e7%9a%84%e8%af%bb%e5%86%99%e5%b1%9e%e6%80%a7
+title: linux更改挂载盘的读写属性
+wordpress_id: 139
+categories:
+- linux
+---
+
+   通过mount -o ro,remount  /  mount -o rw.remount 可对区的挂载进行属性更改

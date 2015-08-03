@@ -1,0 +1,44 @@
+---
+author: wdmcja
+comments: true
+date: 2013-06-20 02:34:39+00:00
+layout: post
+slug: makefile%e6%b7%b7%e5%92%8c%e7%9a%84%e9%9a%90%e5%90%ab%e5%92%8c%e6%99%ae%e9%80%9a%e8%a7%84%e5%88%99%e9%94%99%e8%af%af%e7%9a%84%e8%a7%a3%e5%86%b3
+title: Makefile‘混和的隐含和普通规则’错误的解决
+wordpress_id: 45
+categories:
+- linux
+tags:
+- linux
+- 内核
+- 编译
+---
+
+  最近在换了虚拟机中linux版本后，交叉编译嵌入式内核时总是遇到makefile的“混和的隐含和普通规则”，主要原因是老版make工具对于规则允许台下定义：
+
+
+{% highlight ruby %}
+/ %/: prepare scripts FORCE
+     $(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
+     $(build)=$(build-dir)
+config %config: scripts_basic outputmakefile FORCE
+     $(Q)mkdir -p include/linux include/config
+     $(Q)$(MAKE) $(build)=scripts/kconfig $@
+{% endhighlight %}
+
+
+  对于“/”"%/"混合在一起定义了，在新版对于这种已经不允许了，应改为：
+
+
+{% highlight ruby %}
+/: prepare scripts FORCE
+     $(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
+     $(build)=$(build-dir)
+ %/: prepare scripts FORCE
+     $(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
+     $(build)=$(build-dir)
+{% endhighlight %}
+
+
+  改过后就不会报如上的错误了
+

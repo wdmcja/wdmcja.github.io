@@ -1,0 +1,18 @@
+---
+author: wdmcja
+comments: true
+date: 2013-08-21 08:34:14+00:00
+layout: post
+slug: ioctl%e7%9a%84cmd%e6%97%a0%e6%b3%95%e4%bd%bf%e7%94%a82
+title: ioctl的cmd无法使用2
+wordpress_id: 85
+categories:
+- linux
+- 工作
+tags:
+- ioctl
+- linux
+- 内核
+---
+
+   在移植rdk4.0时,遇到了,如果驱动中将ioctl的cmd设为了2,在应用层改送该指令,根本到不了该驱动的ioctl函数.在网上找了下资料,发现,在新版的linux内核中,ioctl的cmd==0x02已经被使用,没有走到驱动的ioctl就已经返回-1了,最终还是添加了,并用_IO宏把cmd重新定义了一下,可以使用了.最好已经以该宏来定义,而不用自己随意定义

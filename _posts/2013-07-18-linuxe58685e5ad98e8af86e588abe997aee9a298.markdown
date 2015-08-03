@@ -1,0 +1,17 @@
+---
+author: wdmcja
+comments: true
+date: 2013-07-18 02:57:37+00:00
+layout: post
+slug: linux%e5%86%85%e5%ad%98%e8%af%86%e5%88%ab%e9%97%ae%e9%a2%98
+title: linux内存识别问题
+wordpress_id: 76
+categories:
+- linux
+tags:
+- linux
+- 内核
+- 编译
+---
+
+    在gentoo中遇到最高内存只识别出880M的样子，这是由于没有选中4G高内存的问题。在linux配置里，4G高内存并不是指4G以上才用的上，指的是1G-4G的都要选中，否则识别的只有1G-140M的大小

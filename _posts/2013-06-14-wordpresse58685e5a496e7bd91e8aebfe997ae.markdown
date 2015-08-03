@@ -1,0 +1,15 @@
+---
+author: wdmcja
+comments: true
+date: 2013-06-14 15:28:42+00:00
+layout: post
+slug: wordpress%e5%86%85%e5%a4%96%e7%bd%91%e8%ae%bf%e9%97%ae
+title: wordpress内外网访问
+wordpress_id: 8
+categories:
+- wordpress
+tags:
+- wordpress
+---
+
+ 在wordpress里的设置里有设置siteurl与home两个网址，但是只能是完整的url呀，很难实现内外网的同时访问。要实现在内外网同时访问，需更改数据库中wp_options表项中的siteurl与home值为“/wordpress”,就可以实现内外网的同时访问。

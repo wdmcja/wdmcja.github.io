@@ -1,0 +1,64 @@
+---
+author: wdmcja
+comments: true
+date: 2013-07-01 07:14:43+00:00
+layout: post
+slug: sd%e5%8d%a1%e6%97%b6%e9%92%9f%e9%97%ae%e9%a2%98
+title: sd卡时钟问题
+wordpress_id: 66
+categories:
+- linux
+- 工作
+tags:
+- linux
+- mmc
+- 内核
+---
+
+  要更改SD卡的时钟，需更改gpmc_clk
+
+
+{% highlight ruby %}
+[![2013-07-01_150726](/wordpress/wp-content/uploads/2013/07/2013-07-01_150726-300x69.png)](/wordpress/wp-content/uploads/2013/07/2013-07-01_150726.png)
+{% endhighlight %}
+
+
+  在uboot代码里，可以看到gpmc_init函数中对其的初始化：
+
+
+{% highlight ruby %}
+#if defined(CONFIG_CMD_NAND)	/* CS 0 */
+	gpmc_config = gpmc_m_nand;
+
+	base = PISMO1_NAND_BASE;
+	size = PISMO1_NAND_SIZE;
+	enable_gpmc_cs_config(gpmc_config, &gpmc;_cfg->cs[0], base, size);
+#if defined(CONFIG_ENV_IS_IN_NAND)
+{% endhighlight %}
+
+
+  其中gpmc_config = gpmc_m_nand;采用了默认配置：
+
+
+{% highlight ruby %}
+#if defined(CONFIG_CMD_NAND)
+static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
+	M_NAND_GPMC_CONFIG1,
+	M_NAND_GPMC_CONFIG2,
+	M_NAND_GPMC_CONFIG3,
+	M_NAND_GPMC_CONFIG4,
+	M_NAND_GPMC_CONFIG5,
+	M_NAND_GPMC_CONFIG6, 0
+};
+#define M_NAND_GPMC_CONFIG1	0x00001800	//原0x00001810
+{% endhighlight %}
+
+
+  可对其配置更改时钟。
+       
+
+
+
+
+
+

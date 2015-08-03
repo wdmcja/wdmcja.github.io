@@ -1,0 +1,71 @@
+---
+author: wdmcja
+comments: true
+date: 2013-09-24 06:16:48+00:00
+layout: post
+slug: cygwin%e4%b8%ad%e6%96%87%e9%97%ae%e9%a2%98
+title: cygwin中文问题
+wordpress_id: 105
+categories:
+- 计算机
+tags:
+- cygwin
+- git
+---
+
+   
+
+
+其实新版的cygwin已经对中文做了很大的改动,但是在使用过程中还是遇到了程序乱码的问题.原则上来说,这其实与cygwin本身并没有太大关系,主要是由于unix与window的编码格式有关.unix默认用的是utf-8,而window用的是gbk的编码.
+
+
+
+    新版的cygwin用的终端是mintty,是在putty上进行的改进,使用很不错,而且支持中文输入,中文显示,等等.但是在用该终端打开gvim时,发现,程序帮助等都是乱码.用local看过环境变量发现,其环境变量都是zh_CN.UTF-8的格式.
+
+
+
+    在/etc/bash.bashrc文件最后更改其
+
+
+
+    export LC_ALL=zh_CN.GBK,发现,gvim启动时显示都是正确的,但是终端输入上中文输入出现了一些问题,看来终端对于gbk的输入还是有些问题,而且cygwin由于是虚拟unix环境,用utf-8遇到其他的问题会小一些
+
+
+
+    在对比linux下的环境变量与配置,最终发现,决定gvim此类程序的显示格式的是local下的LC_MESSAGES此项,而此项不会影响其他的功能,最终:
+
+
+
+
+<blockquote>
+export LANG=zh_CN.UTF-8
+#export LC_ALL=zh_CN.GBK
+export LANG="zh_CN.UTF-8"
+export LC_CTYPE="zh_CN.UTF-8"
+export LC_NUMERIC="zh_CN.UTF-8"
+export LC_TIME="zh_CN.UTF-8"
+export LC_COLLATE="zh_CN.UTF-8"
+export LC_MONETARY="zh_CN.UTF-8"
+export LC_MESSAGES=zh_CN.GBK
+export LC_PAPER="zh_CN.UTF-8"
+export LC_NAME="zh_CN.UTF-8"
+export LC_ADDRESS="zh_CN.UTF-8"
+export LC_TELEPHONE="zh_CN.UTF-8"
+export LC_MEASUREMENT="zh_CN.UTF-8"
+export LC_IDENTIFICATION="zh_CN.UTF-8"
+</blockquote>
+
+
+      而git中,也出现了git log无法正常显示中文的问题,最终是在下面又加了一行
+
+
+<blockquote>
+export LESSCHARSET=utf-8
+</blockquote>
+
+
+     解决
+
+
+
+

@@ -1,0 +1,48 @@
+---
+author: wdmcja
+comments: true
+date: 2013-07-31 05:36:09+00:00
+layout: post
+slug: proc%e4%b8%8b%e7%9a%84%e5%90%84%e8%8a%82%e7%82%b9
+title: proc下的各节点
+wordpress_id: 83
+categories:
+- linux
+tags:
+- linux
+---
+
+   proc可以称为linux系统的屏幕，在这个节点下可以看到当前linux系统的运行情况，下面列举了proc常见节点
+
+
+{% highlight ruby %}
+目录名称        目录内容
+apm             高级电源管理信息 
+cmdline         内核命令行 
+Cpuinfo         关于Cpu信息 
+Devices         可以用到的设备（块设备/字符设备） 
+Dma             使用的DMA通道 
+Filesystems     支持的文件系统 
+Interrupts      中断的使用 
+Ioports         I/O端口的使用 
+Kcore           内核核心印象 
+Kmsg            内核消息 
+Ksyms           内核符号表 
+Loadavg         负载均衡 
+Locks           内核锁 
+Meminfo         内存信息 
+Misc            杂项 
+Modules         加载模块列表 
+Mounts          加载的文件系统 
+Partitions      系统识别的分区表 
+Rtc             实时时钟 
+Slabinfo Slab   池信息 
+Stat            全面统计状态表 
+Swaps           对换空间的利用情况 
+Version         内核版本 
+Uptime          系统正常运行时间
+{% endhighlight %}
+
+
+
+

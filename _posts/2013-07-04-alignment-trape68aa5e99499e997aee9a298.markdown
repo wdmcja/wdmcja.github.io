@@ -1,0 +1,57 @@
+---
+author: wdmcja
+comments: true
+date: 2013-07-04 11:33:50+00:00
+layout: post
+slug: alignment-trap%e6%8a%a5%e9%94%99%e9%97%ae%e9%a2%98
+title: Alignment trap报错问题
+wordpress_id: 74
+categories:
+- arm
+- linux
+tags:
+- linux
+- 编译
+- 网络
+---
+  在设备中添加ipv6时，在运行ping6测回环时，出现了alignment trap的报错。在内核编译中寻找没有找到配置的问题，最终在网上找到了下面的内容，整理如下，主要是在arm上没有字节对齐引发的问题
+
+  在基于arm的linux系统中，当运行某个应用程序时，可能会出现Alignment trap的错误。以下是出现的一个典型提示：
+
+
+{% highlight ruby %}
+            Alignment trap: standalone-640- (1357) PC=0x00094ab8 Instr=0xe5810000
+Address=0x40e22532 FSR 0x813 Bus error
+{% endhighlight %}
+
+  这主要是应用程序里的数据结构没有按照4字节对齐。虽然arm也支持2字节的Thumb指令，但是必须进入到该工作模式下才生效。不过linux下有参数 可以设置，使得arm能够支持2字节对齐。不过此时arm是通过异常处理，切换到Thumb状态下进行工作，运行完成后又需要切换到正常的4字节模式。因 此执行程序时，会比较慢，影响性能。所以在写arm的linux程序时，最好遵守4字节模式。Linux下的设置命令为：echo 2 > /proc/cpu/alignment
+
+
+{% highlight ruby %}
+cat /proc/cpu/alignment
+ User:           1
+ System:         0
+ Skipped:        0
+ Half:           0
+ Word:           1
+ DWord:          0
+ Multi:          0
+ User faults:    3 (fixup+warn)
+{% endhighlight %}
+
+
+
+
+{% highlight ruby %}
+0 - ignore
+1 - warn
+2 - fixup
+3 - fixup+warn
+4 - signal
+5 - signal+warn (需要这个)
+{% endhighlight %}
+
+
+
+
+
