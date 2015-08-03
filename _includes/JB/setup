@@ -18,7 +18,7 @@
     {% elsif site.safe %}
       {% capture ASSET_PATH %}{{ site.cdn_url }}/assets/themes/{{ page.theme.name }}{% endcapture %}
     {% else %}
-      {% capture ASSET_PATH %}{{ site.baseurl }}/assets/themes/{{ page.theme.name }}{% endcapture %}
+      {% capture ASSET_PATH %}{{ BASE_PATH }}/assets/themes/{{ page.theme.name }}{% endcapture %}
     {% endif %}
 
     {% if site.JB.IMAGE_PATH %}
@@ -26,7 +26,7 @@
     {% elsif site.safe %}
       {% capture IMAGE_PATH %}{{ site.cdn_url }}/images{% endcapture %}
     {% else %}
-      {% capture IMAGE_PATH %}{{ site.baseurl }}/images{% endcapture %}
+      {% capture IMAGE_PATH %}{{ BASE_PATH }}/images{% endcapture %}
     {% endif %}
   {% endif %}
 {% endcapture %}{% assign jbcache = nil %}
