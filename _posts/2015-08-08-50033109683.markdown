@@ -1,0 +1,30 @@
+---
+layout      : post
+title       : "gentoo中gnome3下用fcitx"
+date        : 2015-08-08 00:22:52
+tags        : 
+- gnome3
+- fcitx
+categories  : 
+- linux
+---
+
+  用gentoo也有快四年了，最开始用的linux发行版是ubuntu 10.10，对gnome2的使用习惯还是最顺手。也就一直用的gnome的桌面。虽然gnome3感觉很烂。
+
+  在gnome3中，集成了一个输入法，而对其他的输入是很排斥的，而个人是很喜欢fcitx，对gnome3的这种捆绑行为也是很反感。不过，解决方法也是很简单的。
+
+  在gentoo的use里，将i18n从gnome-base/gnome-control-center,gnome-base/gnome-shell标记下，再重装下，就可以使用自己的输入法了。这里推荐fcitx。
+
+{% highlight ruby %}
+gnome-base/gnome-shell           -i18n 
+gnome-base/gnome-control-center  -i18n
+{% endhighlight %}
+
+  但是大家会发现，这种方法下，gnome-terminal会没法用输入法了。这里大家要手动设置下其的输入法。
+  {% highlight ruby %}
+gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/IMModule':<'fcitx'>}"
+  {% endhighlight %}
+
+  这样应该就没问题。
+
+  目前我已经开始转向xfce4了，感觉还是很不错的。gnome3用了几个月，个人感觉还是很烂。而且开机cpu占用会到5%,而xfce4就很轻量了。具体还是看个人喜好吧。
