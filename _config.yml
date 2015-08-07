@@ -112,16 +112,16 @@ JB :
   # Set 'provider' to the analytics provider you want to use.
   # Set 'provider' to false to turn analytics off globally.
   #        
-  #analytics :
-  # provider : baidu
-  # baidu :
-  #   tracking_id : 'a7c01c4b55f06cf1df9cabb9b18a65a3' 
-  # google : 
-  #   tracking_id : 'UA-41189818-1'
-  # getclicky :
-  #   site_id : 
-  # mixpanel :
-  #   token : '_MIXPANEL_TOKEN_'
+  analytics :
+   provider : baidu
+   baidu :
+     tracking_id : '559c8d6d9eb1ad8335e6587ef51f9fe8' 
+   google : 
+     tracking_id : 'UA-41189818-1'
+   getclicky :
+     site_id : 
+   mixpanel :
+     token : '_MIXPANEL_TOKEN_'
 
   # Settings for sharing helper. 
   # Sharing is for things like tweet, plusone, like, reddit buttons etc.
