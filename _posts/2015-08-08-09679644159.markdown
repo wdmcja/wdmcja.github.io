@@ -1,0 +1,33 @@
+---
+layout      : post
+title       : "wine的path转换"
+date        : 2015-08-08 00:06:14
+tags        : 
+- wine
+- linux 
+categories  : 
+- linux
+---
+
+  一直在gentoo上用linux原生的bcompare3,有段时间没有用此软件。这段时间用了一下，发现该软件在比较时，打开文件相当之慢。但是在公司以前的虚拟机上却很正常。。感觉可能是依赖库升级太频繁，有些库太新的原因。具体原因也不是很清楚。
+
+  试了下，meld，其不能对比二进制文件，kdiff3也试了下。其实最主要是用bcompare习惯了。不太适应这些软件。对比也相当不习惯。gitdiff也不是很方便了。所以最终还是用wine实现了。（大家要是知道原生的卡的原因也可以告诉我一下。）
+
+  但是wine的话，在wine Bcompare.exe 后跟路径参数会出现问题。因为gitdiff传入的参数是linux格式路径。只好在单独写了一个脚本来进行路径转换。
+
+  原理是这样。先wine -cfg ,将"/"中径设置为wine的w盘（也可以是其他未使用盘符），之后将Linux的路径的"/"变成"\",前面加"w:",例如"/home/user/test" -- > "w:\home\user\test"
+
+{% highlight ruby %}
+MYBCOMPAREPATH=
+
+while test $# != 0
+do
+    MYBCOMPAREPATH=$MYBCOMPAREPATH" W:"`echo $1 | sed 's/\//\\\\/g'`
+    shift
+done
+
+echo $MYBCOMPAREPATH
+wine /media/program/BeyondCompare3/BCompare.exe "$MYBCOMPAREPATH" 
+{% endhighlight %}
+
+  基本可以用了。虽然也不赞成用wine，但是也是暂时解决的一个方法。在上记录一下。
