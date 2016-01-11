@@ -1,0 +1,30 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2015-08-04 15:50:29
+layout     : post
+title      : 学习表格制作
+categories :
+- 学习
+tags       :
+- markdown
+- jekyll
+---
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+|test|test1|asdlaskdj|
+|-----|:-----:|-----:|
+|alsdja|alsdjlf|asldjf|alsdjl|
+
+`
+int main()     
+{   
+    printf();   
+    return 0;   
+}   
+`
