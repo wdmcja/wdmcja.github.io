@@ -1,0 +1,19 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2016-04-04 00:52:18
+layout     : post
+title      : gentoo中的initramfs的生成错误
+categories :
+- gentoo
+tags       :
+- initramfs
+- gentoo
+- 文件系统
+---
+        
+    目前一直用的gentoo的系统，而且一直用的genkernel的工具进行编译内核与文件系统。
+    我个人的观点是，有genkernel进行管理的工具，没有必要再自己去编译内核跟initramfs了。而且，所谓的，自己编译配置，做文件系统可以做最小化的系统跟内核，减小启动时间，运行性能等。但根本不是这样的，因为genkernel同样是可以配置的呀....其实主要是自己比较懒啦。
+    一般genkernel的运行指令是genkernel --udev --lvm --menconfig --no-clean all。目前我的.config已经配置好了，当时是点点的改出来的，想想都好累。
+
+
