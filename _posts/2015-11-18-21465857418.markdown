@@ -1,0 +1,18 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2015-11-18 15:16:24
+layout     : post
+title      : 关于Operation not permitted
+categories :
+- 驱动
+tags       :
+- 驱动
+- kernel
+---
+
+在一般情况下，Operation not permitted是因为权限不够，而无法进行操作。但是在你是root情况下，而且该文件对root有权限时，还报该问题，就有些奇怪。
+
+最近遇到了这个问题，是在加载驱动时，报Operation not permitted.很奇怪，明明可以删，覆盖。但就是无法加载。
+
+最后，发现是，.minor = 216,与另一个已经加载的驱动相同，而无法加载。这在另一个层面上，确实也属于权限问题，只是不太容易想到。在这里记录一下
