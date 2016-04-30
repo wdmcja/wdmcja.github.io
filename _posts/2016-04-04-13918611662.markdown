@@ -14,6 +14,13 @@ tags       :
         
     目前一直用的gentoo的系统，而且一直用的genkernel的工具进行编译内核与文件系统。
     我个人的观点是，有genkernel进行管理的工具，没有必要再自己去编译内核跟initramfs了。而且，所谓的，自己编译配置，做文件系统可以做最小化的系统跟内核，减小启动时间，运行性能等。但根本不是这样的，因为genkernel同样是可以配置的呀....其实主要是自己比较懒啦。
-    一般genkernel的运行指令是genkernel --udev --lvm --menconfig --no-clean all。目前我的.config已经配置好了，当时是点点的改出来的，想想都好累。
-
-
+    一般genkernel的运行指令是genkernel --udev --lvm --menconfig --no-clean all。目前我的.config已经配置好了，当时是点点的改出来的，想想都好累。我最开始的时候其实是先进行的all的默认配置，确定了一个基本版本，再后来一点点的改的，反正基本是想起来了，改一下，后来就懒的改了．
+    对于文件系统这块，我更是没有什么兴趣了．一直直接用genkernel进行的编译．不过，最近编译的时候，遇到了两次can not find /udev的什么的．网上查了下，好像没有没个人遇到，可能很少有人用genkernel进行文件系统编译，而且还出了问题吧．第一次查了下，找到了问题，后来，再更新内核时，重新生成文件系统出了问题，其实还是那个问题，但是隔了有点久（更新内核一般也是看心情的啦，更新内核也没觉出什么区别，一般直接用原来的内核配置，现在已经懒的动了）．又找了下，这次就做个记录．
+    其实genkernel生成的脚本用到了/usr/share/genkernel/gen_initramfs.sh这个脚本．这里主要是udev,还有什么的．出现的问题，其实是文件路径出现了错误，主要是
+    {% highlight ruby %}
+    _get_udevdir() {
+    local udev_dir=$(pkg-config --variable udevdir udev)
+    [[ -n "${udev_dir}" ]] && echo $(realpath "${udev_dir}")
+}
+    {% endhighlight %}
+    出了问题，无法找到udev的路径，后来是手动设置后，就正常了．这里还是记录一下．
