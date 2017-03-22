@@ -104,12 +104,13 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : duoshuo
+    provider : wrapper
     duoshuo :
       short_name : wdmcja88
     changxiang :
         appid : cyrUOmLNm
         conf  : prod_ed6d5ea394f1698508ef0611fb44bf30    
+    wrapper:
     disqus :
       short_name : wdmcja
     livefyre :

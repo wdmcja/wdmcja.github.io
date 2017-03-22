@@ -5,6 +5,8 @@
   {% include JB/comments-providers/duoshuo %}
 {% when "changxiang" %}
   {% include JB/comments-providers/changxiang %}
+{% when "wrapper" %}
+  {% include JB/comments-providers/wrapper %}
 {% when "disqus" %}
   {% include JB/comments-providers/disqus %}
 {% when "livefyre" %}
