@@ -12,3 +12,23 @@
     {% include widgets/links_list %}
   </section>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+  var position = $('#fixed-container').offset();
+  $(window).scroll(function() {
+    if($(window).scrollTop() > position.top) {
+      $('#fixed-container').css('position','fixed').css('top','0');
+    } else {
+      $('#fixed-container').css('position','static');
+    }
+  });
+  if(matchMedia) {
+    var mq = matchMedia('(max-width: 999px)');
+    mq.addListener(function(mql) {
+      if (!mql.matches) {
+        position = $('#fixed-container').offset();
+      }
+    });
+  }
+});
+</script>

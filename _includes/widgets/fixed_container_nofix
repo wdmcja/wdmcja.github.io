@@ -1,0 +1,14 @@
+<div id="fixed-container">
+        <section{% if page.title == '标签' %} class="active"{% endif %}>
+          {% include widgets/tag_cloud %}
+        </section>
+  <section>
+    {% include widgets/repos_list %}
+  </section>
+  <section>
+    {% include widgets/contacts_list %}
+  </section>
+  <section>
+    {% include widgets/links_list %}
+  </section>
+</div>
