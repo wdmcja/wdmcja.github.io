@@ -104,7 +104,7 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : wrapper
+    provider : uyan
     duoshuo :
       short_name : wdmcja88
     changxiang :
@@ -115,6 +115,8 @@ JB :
       short_name : wdmcja
     livefyre :
       site_id : 123
+    uyan:
+      site_id : 2128607
     intensedebate :
       account : 123abc
     facebook :
