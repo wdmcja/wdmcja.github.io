@@ -11,11 +11,12 @@ tags       :
 - gentoo
 - texlive
 ---
-
+{% highlight ruby %}
 rm 	/etc/texmf/updmap.d/texlive-langchinese.cfg
 rm 	/etc/texmf/language.dat.d/language.texlive-langchinese.dat
 rm 	/etc/texmf/language.def.d/language.texlive-langchinese.def
 rm 	/usr/share/texmf-dist/tex/generic/hyph-utf8/loadhyph/loadhyph-zh-latn-pinyin.tex
+
 
 由于这些配置，导致编译会报
 ! I can't find file `loadhyph-zh-latn-pinyin.tex'.
