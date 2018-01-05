@@ -1,0 +1,20 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2018-01-05 23:44:49
+layout     : post
+title      : UnicodeDecodeError提示问题解决
+categories :
+- gentoo
+- python
+tags       :
+- python
+- gentoo
+---
+
+gentoo中，emerge是用python实现的。调用的是python2.7。但是由于我们采用的是utf-8的编码，而不是accii。而导致会报以下的错误 ：
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe8 in position 9: ordinal not in range(128)
+
+修改办法是：
+修改/usr/lib64/python2.7/site.py文件中的
+setencoding()函数，将encoding = "ascii" 修改成  encoding = "utf-8"
