@@ -1,0 +1,96 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2018-01-05 23:06:29
+layout     : post
+title      : compiz动画效果无效问题记录
+categories :
+- gentoo
+- compiz
+tags       :
+- gentoo
+- compiz
+---
+
+      安装完compiz后，只要一开动画就会直接compiz进行崩溃了。
+报错如下：
+{% highlight ruby %}
+compiz ccp --replace --sm-disable --ignore-desktop-hints
+compiz: symbol lookup error: /usr/lib64/compiz/libanimation.so: undefined symbol: animGetI
+{% highlight ruby %}
+
+     最后发现是在安装x11-plugins/compiz-plugins-main时，有个头文件 
+/usr/include/compiz/compiz-animation.h
+会影响其安装，导致一些内联函数没法使用。
+应该是gcc的版本问题导致一些声明已经没法使用了。
+更改后的部分如下，去掉了一个Inline的声音
+
+{% highlight ruby %}
+#define OPTION_GETTERS(extensionBaseFunctions,				\
+		       extensionPluginInfo, firstEffectOption)		\
+static inline CompOptionValue *						\
+animGetOptVal (CompWindow *w,						\
+	       int optionId)						\
+{									\
+    return (extensionBaseFunctions)->getPluginOptVal			\
+    	(w, (extensionPluginInfo), optionId - (firstEffectOption));	\
+}						\
+						\
+ Bool					\
+animGetB (CompWindow *w,			\
+	  int optionId)				\
+{						\
+    return animGetOptVal (w, optionId)->b;	\
+}						\
+						\
+ int					\
+animGetI (CompWindow *w,			\
+	  int optionId)				\
+{						\
+    return animGetOptVal (w, optionId)->i;	\
+}						\
+						\
+ float					\
+animGetF (CompWindow *w,			\
+	  int optionId)				\
+{						\
+    return animGetOptVal (w, optionId)->f;	\
+}						\
+						\
+ char *					\
+animGetS (CompWindow *w,			\
+	  int optionId)				\
+{						\
+    return animGetOptVal (w, optionId)->s;	\
+}						\
+						\
+ unsigned short *				\
+animGetC (CompWindow *w,			\
+	  int optionId)				\
+{						\
+    return animGetOptVal (w, optionId)->c;	\
+}
+
+#define OPTION_GETTERS_HDR			\
+						\
+ Bool					\
+animGetB (CompWindow *w,			\
+	  int optionId);			\
+						\
+ int					\
+animGetI (CompWindow *w,			\
+	  int optionId);			\
+						\
+ float					\
+animGetF (CompWindow *w,			\
+	  int optionId);			\
+						\
+ char *					\
+animGetS (CompWindow *w,			\
+	  int optionId);			\
+						\
+ unsigned short *				\
+animGetC (CompWindow *w,			\
+	  int optionId);
+{% endhighlight %}
+
