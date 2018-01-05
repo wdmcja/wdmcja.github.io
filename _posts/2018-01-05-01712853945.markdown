@@ -1,0 +1,30 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2018-01-05 23:47:07
+layout     : post
+title      : loadhyph-zh-latn-pinyin.tex问题记录
+categories :
+- gentoo
+- texlive
+tags       :
+- gentoo
+- texlive
+---
+
+rm 	/etc/texmf/updmap.d/texlive-langchinese.cfg
+rm 	/etc/texmf/language.dat.d/language.texlive-langchinese.dat
+rm 	/etc/texmf/language.def.d/language.texlive-langchinese.def
+rm 	/usr/share/texmf-dist/tex/generic/hyph-utf8/loadhyph/loadhyph-zh-latn-pinyin.tex
+
+由于这些配置，导致编译会报
+! I can't find file `loadhyph-zh-latn-pinyin.tex'.
+\addlanguage ...me =#5 \uselanguage {#1}\input #2 
+                                                  \if *#3*\else \input #3 \f...
+l.31 ...nyin}{loadhyph-zh-latn-pinyin.tex}{}{1}{1}
+
+
+可以先
+emerge -av dev-texlive/texlive-langchinese --oneshot --nodeps
+
+再进行安装就行了
