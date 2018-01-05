@@ -17,7 +17,7 @@ tags       :
 {% highlight ruby %}
 compiz ccp --replace --sm-disable --ignore-desktop-hints
 compiz: symbol lookup error: /usr/lib64/compiz/libanimation.so: undefined symbol: animGetI
-{% highlight ruby %}
+{% endhighlight %}
 
      最后发现是在安装x11-plugins/compiz-plugins-main时，有个头文件 
 /usr/include/compiz/compiz-animation.h
@@ -26,7 +26,6 @@ compiz: symbol lookup error: /usr/lib64/compiz/libanimation.so: undefined symbol
 更改后的部分如下，去掉了一个Inline的声音
 
 {% highlight ruby %}
-{
 #define OPTION_GETTERS(extensionBaseFunctions,				\
 		       extensionPluginInfo, firstEffectOption)		\
 static inline CompOptionValue *						\
@@ -94,6 +93,5 @@ animGetS (CompWindow *w,			\
 animGetC (CompWindow *w,			\
 	  int optionId);
 
-}
 {% endhighlight %}
 
