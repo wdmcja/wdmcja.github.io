@@ -26,6 +26,7 @@ compiz: symbol lookup error: /usr/lib64/compiz/libanimation.so: undefined symbol
 更改后的部分如下，去掉了一个Inline的声音
 
 {% highlight ruby %}
+{
 #define OPTION_GETTERS(extensionBaseFunctions,				\
 		       extensionPluginInfo, firstEffectOption)		\
 static inline CompOptionValue *						\
@@ -92,5 +93,7 @@ animGetS (CompWindow *w,			\
  unsigned short *				\
 animGetC (CompWindow *w,			\
 	  int optionId);
+
+}
 {% endhighlight %}
 
