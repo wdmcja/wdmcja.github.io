@@ -119,8 +119,8 @@ JB :
     uyan:
       site_id : 2128607
     gitment:
-      site_id : 7c8f357607e48fc61c50
-      site_secret : 213167bc04eb61a1113fcc226e52fac2ccde56db
+      site_id : '7c8f357607e48fc61c50'
+      site_secret : '213167bc04eb61a1113fcc226e52fac2ccde56db'
     intensedebate :
       account : 123abc
     facebook :
