@@ -8,7 +8,7 @@ var gitment = new Gitment({
   repo: 'wdmcja.github.io',                 //比如我的叫anTtutu.github.io
   oauth: {
     client_id: '{{ site.JB.comments.gitment.site_id }}',          //比如我的828***********
-    client_secret: '213167bc04eb61a1113fcc226e52fac2ccde56db',  //比如我的49e************************
+    client_secret: '{{ site.JB.comments.gitment.site_secret }}',  //比如我的49e************************
   },
 })
 gitment.render('container')
