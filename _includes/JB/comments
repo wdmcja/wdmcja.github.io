@@ -13,6 +13,8 @@
   {% include JB/comments-providers/livefyre %}
 {% when "uyan" %}
   {% include JB/comments-providers/uyan %}
+{% when "gitment" %}
+  {% include JB/comments-providers/gitment %}  
 {% when "intensedebate" %}
   {% include JB/comments-providers/intensedebate %}
 {% when "facebook" %}
