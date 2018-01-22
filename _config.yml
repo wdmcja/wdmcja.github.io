@@ -105,7 +105,7 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : uyan
+    provider : gitment
     duoshuo :
       short_name : wdmcja88
     changxiang :
@@ -118,6 +118,9 @@ JB :
       site_id : 123
     uyan:
       site_id : 2128607
+    gitment:
+      site_id : 7c8f357607e48fc61c50
+      site_secret : 213167bc04eb61a1113fcc226e52fac2ccde56db
     intensedebate :
       account : 123abc
     facebook :
