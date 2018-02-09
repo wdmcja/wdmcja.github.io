@@ -1,0 +1,27 @@
+---
+author     : wdmcja
+comments   : true
+date       : 2018-02-09 20:53:27
+layout     : post
+title      : samba无法被windows扫描到
+categories :
+- samba
+tags       :
+- gentoo
+- linux
+- samba
+---
+
+   在gentoo上部署了一个samba,系统用的systemctl，而不是rc了。
+
+   在配置完/etc/samba/smb.conf后,将smbd -D 加入开机启动。在手机与windows上可以使用。但是扫描不到。在windows上只能手动输入:\\ip进行访问。挂载也没有什么问题。
+
+   本来这样也没有什么问题。但是在家里的电视上的网络邻居无法找到这个samba.而windows下的共享却是可以正常扫描到的。而且，在windows下的共享是可以在别的电脑上网络中扫描到的。
+
+   一直无法找到原因，以为是samba的配置问题，但是同样配置上的树莓派中却是可以扫描到的。也怀疑过是smaba的版本问题。但最后都排除了。
+
+   最后确定是由于samba服务如果需要被扫描到，需要开两个服务：
+   - smbd -D
+   - nmbd -D 
+   将nmbd也加入了开机启动后，就可以被扫描到，没什么问题了。
+
