@@ -18,11 +18,13 @@ kramdown:
     - autolink
     - footnotes
     - smart
-  use_coderay: true
+  #use_coderay: true
+  enable_coderay: true
   syntax_highlighter: rouge
   coderay:
     coderay_line_numbers:  nil
 
+gems: [jekyll-paginate]
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
@@ -43,10 +45,10 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : https://wdmcja.github.io/
-cdn_url : https://wdmcja.github.io/
+production_url : 
+cdn_url : 
 baseurl: ""
-url: "https://wdmcja.github.io/"
+url: ""
 
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
