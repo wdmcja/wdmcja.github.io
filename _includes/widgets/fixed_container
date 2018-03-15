@@ -16,9 +16,9 @@
 $(document).ready(function() {
   var position = $('#fixed-container').offset();
   $(window).scroll(function() {
-    if($(window).scrollTop() > position.top) {
+    if($(window).scrollTop() > position.top + 60) {
       $('#fixed-container').css('position','fixed').css('top','0');
-    } else {
+    } else if($(window).scrollTop() <= position.top - 50 ){
       $('#fixed-container').css('position','static');
     }
   });
